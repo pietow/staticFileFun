@@ -11,18 +11,17 @@ app.use((req, res, next) => {
 })
 
 app.use((req, res, next) => {
-    const file = req.url
-    const dir = path.join(__dirname, 'static')
-    fs.readdir(dir, (err, files) => {
-        if (err || !files.includes(files.slice(0))) {
-            console.log('Error')
-            console.log(err)
-            /* console.log("Can't scan dir " + err) */
+    const filePath = path.join(__dirname, "static", req.url)
+    fs.stat(filePath, function(err, fileInfo) {
+        if(err) {
             next()
-        } else {
-            res.sendFile(dir + file)
+            return;
         }
-        /* next() */
+        if(fileInfo.isFile()) {
+            res.sendFile(filePath)
+        } else {
+            next()
+        }
     })
 })
 
