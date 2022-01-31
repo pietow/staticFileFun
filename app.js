@@ -25,9 +25,10 @@ app.use((req, res, next) => {
     })
 })
 
-//404 middleware
-app.use((req, res, next) => {
-    res.send("<p>Error: something went wrong<p>")
+//404 middleware; this must be the last middleware, since the next function is not called ==> order of the middleware stack is important
+app.use((req, res) => {
+    res.status(404)
+    res.send("File not found")
 })
 
 app.listen(3000, () => {
