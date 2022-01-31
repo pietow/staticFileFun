@@ -14,7 +14,7 @@ app.use((req, res, next) => {
     const filePath = path.join(__dirname, "static", req.url)
     fs.stat(filePath, function(err, fileInfo) {
         if(err) {
-            next()
+            next() //we must call next since node is aynchronous; you need to tell express when to continue
             return;
         }
         if(fileInfo.isFile()) {
