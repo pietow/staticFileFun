@@ -25,6 +25,11 @@ app.use((req, res, next) => {
     })
 })
 
+//404 middleware
+app.use((req, res, next) => {
+    res.send("<p>Error: something went wrong<p>")
+})
+
 app.listen(3000, () => {
     console.log("App starting on port 3000")
 })
