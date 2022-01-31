@@ -10,7 +10,7 @@ app.use(morgan('combined'))
 app.use((req, res, next) => {
     console.log(req.method)
     console.log(req.rawHeaders)
-    /* console.log(req.statusCode) */
+    console.log(res.statusCode)
     console.log(req.protocol)
     next()
 })
