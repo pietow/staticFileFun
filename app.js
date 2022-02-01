@@ -1,22 +1,15 @@
 /** @format */
 
 const express = require('express')
-const morgan = require('morgan') //morgan is a function which return a middleware function
 const path = require('path')
+const apiRouter = require('./routes/api_router')
 
 const app = express()
 
-app.use(morgan('combined'))
+const staticPath = path.resolve(__dirname, 'static')
+app.use(express.static(staticPath))
 
-app.get('/search', (req, res) => {
-    console.log(req.query.q) //graps query from ...../search?q=bla
-    res.send('Welcome')
-})
-
-//404 middleware; this must be the last middleware, since the next function is not called ==> order of the middleware stack is important
-app.use((req, res) => {
-    res.status(404).send('Page not found')
-})
+app.use('/api', apiRouter)
 
 app.listen(3000, () => {
     console.log('App starting on port 3000')
