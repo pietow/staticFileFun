@@ -1,16 +1,18 @@
 /** @format */
 
 const express = require('express')
-const morgan = require('morgan') //morgan is a function which return a middleware function 
+const morgan = require('morgan') //morgan is a function which return a middleware function
 const path = require('path')
 
 const app = express()
 
 app.use(morgan('combined'))
 
-app.get('/users/:userid', (req, res) => {
-    const userId = Number(req.params.userid)
-    console.log(userId)
+app.get(/^\/users\/(\d+)-(\d+)$/, (req, res) => { //use regex with capture group
+    const startId = parseInt(req.params[0], 10) //get capture group
+    const endId = parseInt(req.params[1], 10)
+    console.log(startId)
+    console.log(endId)
     res.send('Welcome')
 })
 
